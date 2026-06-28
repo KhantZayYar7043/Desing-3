@@ -40,10 +40,10 @@
 
         /* 3. CATEGORY LAYER (Bottom Layer) */
         .category-layer {
-            background-color: #0b0813; padding: 10px; display: flex; justify-content: center; gap: 8px; overflow-x: auto;
+            background-color: #0b0813; padding: 12px 10px; display: flex; justify-content: center; gap: 12px; overflow-x: auto;
             border-bottom: 2px solid var(--neon-purple); box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
         }
-        .category-layer button { background: #16122c; border: 1px solid rgba(168, 85, 247, 0.3); color: #94a3b8; padding: 8px 18px; font-size: 13.5px; font-weight: 600; cursor: pointer; border-radius: 20px; transition: 0.2s; white-space: nowrap; }
+        .category-layer button { background: #16122c; border: 1px solid rgba(168, 85, 247, 0.3); color: #94a3b8; padding: 10px 24px; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 25px; transition: 0.2s; white-space: nowrap; }
         .category-layer button:hover, .category-layer button.active { color: #fff; background: var(--neon-purple); border-color: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); }
 
         /* Main Content */
@@ -88,8 +88,8 @@
 
         /* Responsive UI Mobile */
         @media (max-width: 768px) {
-            .category-layer { justify-content: flex-start; padding: 8px; }
-            .category-layer button { padding: 6px 14px; font-size: 12.5px; }
+            .category-layer { justify-content: flex-start; padding: 8px; gap: 8px; }
+            .category-layer button { padding: 8px 16px; font-size: 13px; }
             main { padding: 12px; }
             .grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
             .video-title { font-size: 12px; height: 34px; }
@@ -108,16 +108,14 @@
         <div class="search-layer">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="ရှာဖွေရန်...">
-                <button onclick="handleSearch()">ရှာပါ</button>
+                <button onclick="handleSearch()">...ရှာပါ</button>
             </div>
         </div>
 
         <div class="category-layer">
             <button onclick="filterCategory('myanmar', this)" class="active">မြန်မာကားများ</button>
-            <button onclick="filterCategory('asian', this)">အာရှ</button>
-            <button onclick="filterCategory('japanese', this)">ဂျပန်</button>
-            <button onclick="filterCategory('milf', this)">မမများ</button>
-            <button onclick="filterCategory('amateur', this)">အပျော်တမ်း</button>
+            <button onclick="filterCategory('thai', this)">ထိုင်းကားများ</button>
+            <button onclick="filterCategory('korean', this)">ကိုရီးယားကားများ</button>
         </div>
     </div>
 
@@ -156,8 +154,9 @@
         const videoTitle = document.getElementById('videoTitle');
         const loadMoreBtn = document.getElementById('loadMoreBtn'); 
 
+        // စာမျက်နှာ ဖွင့်တိုင်း ဗီဒီယိုတွေ အမြဲတမ်း Random ပြောင်းလဲနေစေရန် Page Number ကို ကျပန်းရွေးချယ်ခြင်း
         function getRandomPage() {
-            return Math.floor(Math.random() * 15) + 1;
+            return Math.floor(Math.random() * 25) + 1;
         } 
 
         async function fetchVideos(query = 'myanmar', append = false) {
@@ -174,6 +173,7 @@
                 if (!append) videoGrid.innerHTML = ''; 
 
                 if (data && data.videos && data.videos.length > 0) {
+                    // ဗီဒီယို အစီအစဉ်ကိုလည်း ထပ်မံ Random ရောမွှေပေးခြင်း
                     let shuffledVideos = data.videos.sort(() => Math.random() - 0.5);
                     renderCards(shuffledVideos);
                     loadMoreBtn.style.display = 'block';
@@ -242,7 +242,7 @@
             fetchVideos(currentQuery, true);
         } 
 
-        // Initial Load
+        // Initial Load (ပထမဆုံးပွင့်ချိန်တွင် မြန်မာကားကို Random အရင်ပြမည်)
         fetchVideos('myanmar', false);
     </script> 
 
