@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Midnight Hub</title>
+    <title>SerBalGyi</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
         body { background-color: #0b0813; color: #f1f0f5; display: flex; flex-direction: column; min-height: 100vh; }
@@ -22,14 +22,35 @@
         /* Main Container Layout */
         .app-layout { display: flex; flex-direction: column; width: 100%; }
 
-        /* 1. TITLE LAYER (Top Header) */
+        /* 1. TITLE LAYER (Top Header & Logo Animation) */
         header { 
-            background-color: var(--dark-bg); padding: 15px 20px; display: flex; justify-content: center; align-items: center;
+            background-color: var(--dark-bg); padding: 18px 20px; display: flex; justify-content: center; align-items: center;
             border-bottom: 1px solid rgba(168, 85, 247, 0.2);
         }
-        .logo { font-size: 26px; font-weight: 900; color: #fff; text-shadow: 0 0 10px var(--neon-pink); cursor: pointer; user-select: none; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* 2. SEARCH LAYER (Middle Layer) */
+        /* 🔥 SerBalGyi Logo Animation Dynamic Style */
+        .logo { 
+            font-size: 28px; 
+            font-weight: 900; 
+            cursor: pointer; 
+            user-select: none; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            animation: neonGlow 3s infinite alternate, textPulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes neonGlow {
+            0% { color: #fff; text-shadow: 0 0 10px #f43f5e, 0 0 20px #f43f5e, 0 0 30px #a855f7; }
+            50% { color: #f43f5e; text-shadow: 0 0 15px #a855f7, 0 0 25px #a855f7, 0 0 40px #f43f5e; }
+            100% { color: #a855f7; text-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 30px #a855f7; }
+        }
+
+        @keyframes textPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        
+        /* 2. SEARCH LAYER */
         .search-layer {
             background-color: #0d0a1a; padding: 12px 20px; display: flex; justify-content: center;
             border-bottom: 1px solid rgba(168, 85, 247, 0.2);
@@ -38,7 +59,7 @@
         .search-box input { width: 100%; padding: 8px 12px; border: none; background: transparent; color: #fff; outline: none; font-size: 14px; }
         .search-box button { padding: 8px 22px; border: none; background: var(--neon-pink); color: #fff; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 14px; }
 
-        /* 3. CATEGORY LAYER (Bottom Layer) */
+        /* 3. CATEGORY LAYER */
         .category-layer {
             background-color: #0b0813; padding: 12px 10px; display: flex; justify-content: center; gap: 12px; overflow-x: auto;
             border-bottom: 2px solid var(--neon-purple); box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
@@ -86,6 +107,27 @@
         .load-more-btn { display: block; width: 180px; margin: 30px auto; padding: 12px; background: #16122c; color: #fff; border: 1px solid var(--neon-purple); border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; }
         .load-more-btn:hover { background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); } 
 
+        /* 🚨 Pop up Notice Box CSS */
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center;
+            z-index: 9999; padding: 20px; opacity: 1; transition: opacity 0.3s ease;
+        }
+        .popup-box {
+            background: #120e22; border: 2px solid var(--neon-pink); border-radius: 15px;
+            padding: 25px; max-width: 450px; width: 100%; text-align: center;
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.5); transform: scale(1); transition: transform 0.3s ease;
+        }
+        .popup-title { font-size: 20px; font-weight: bold; color: #f43f5e; margin-bottom: 15px; text-shadow: 0 0 8px rgba(244, 63, 94, 0.3); }
+        .popup-msg { font-size: 14.5px; color: #e2e8f0; line-height: 1.6; margin-bottom: 22px; text-align: left; }
+        .popup-msg span { color: #a855f7; font-weight: bold; }
+        .popup-close-btn {
+            background: var(--neon-pink); color: #fff; border: none; padding: 10px 35px;
+            font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.4); transition: 0.2s;
+        }
+        .popup-close-btn:hover { background: #fff; color: #000; box-shadow: 0 0 15px #fff; }
+
         /* Responsive UI Mobile */
         @media (max-width: 768px) {
             .category-layer { justify-content: flex-start; padding: 8px; gap: 8px; }
@@ -93,6 +135,7 @@
             main { padding: 12px; }
             .grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
             .video-title { font-size: 12px; height: 34px; }
+            .logo { font-size: 24px; }
         }
     </style> 
 
@@ -100,9 +143,20 @@
 </head>
 <body> 
 
+    <div class="popup-overlay" id="popupNotice">
+        <div class="popup-box">
+            <div class="popup-title">⚠️ သတိပေးချက်</div>
+            <div class="popup-msg">
+                • ဗီဒီယိုများ ကြည့်ရှု၍ မရပါက <span>VPN ခံပြီး</span> ကြည့်ရှုပေးပါ။<br><br>
+                • တယ်လီကွန်းဖုန်းလိုင်းများဖြင့် ကြည့်မရပါက <span>WiFi အသုံးပြုသူများသည် VPN မလိုဘဲ</span> တိုက်ရိုက် ကြည့်ရှုနိုင်ပါသည်။
+            </div>
+            <button class="popup-close-btn" onclick="closeNotice()">နားလည်ပါပြီ</button>
+        </div>
+    </div>
+
     <div class="app-layout">
         <header>
-            <div class="logo" onclick="goHome()">Midnight Hub</div>
+            <div class="logo" onclick="goHome()">SerBalGyi</div>
         </header> 
 
         <div class="search-layer">
@@ -154,7 +208,15 @@
         const videoTitle = document.getElementById('videoTitle');
         const loadMoreBtn = document.getElementById('loadMoreBtn'); 
 
-        // စာမျက်နှာ ဖွင့်တိုင်း ဗီဒီယိုတွေ အမြဲတမ်း Random ပြောင်းလဲနေစေရန် Page Number ကို ကျပန်းရွေးချယ်ခြင်း
+        // Popup ပိတ်ရန် Function
+        function closeNotice() {
+            const popup = document.getElementById('popupNotice');
+            popup.style.opacity = '0';
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 300);
+        }
+
         function getRandomPage() {
             return Math.floor(Math.random() * 25) + 1;
         } 
@@ -173,7 +235,6 @@
                 if (!append) videoGrid.innerHTML = ''; 
 
                 if (data && data.videos && data.videos.length > 0) {
-                    // ဗီဒီယို အစီအစဉ်ကိုလည်း ထပ်မံ Random ရောမွှေပေးခြင်း
                     let shuffledVideos = data.videos.sort(() => Math.random() - 0.5);
                     renderCards(shuffledVideos);
                     loadMoreBtn.style.display = 'block';
@@ -242,7 +303,7 @@
             fetchVideos(currentQuery, true);
         } 
 
-        // Initial Load (ပထမဆုံးပွင့်ချိန်တွင် မြန်မာကားကို Random အရင်ပြမည်)
+        // Initial Load
         fetchVideos('myanmar', false);
     </script> 
 
