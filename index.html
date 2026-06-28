@@ -19,25 +19,32 @@
         ::-webkit-scrollbar-track { background: #0b0813; }
         ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 3px; }
 
-        /* Header */
-        header { 
-            background-color: var(--dark-bg); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; 
-            position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--neon-purple);
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
-        }
-        .logo { font-size: 22px; font-weight: 900; color: #fff; text-shadow: 0 0 10px var(--neon-pink); cursor: pointer; user-select: none; }
-        
-        .search-box { display: flex; background: #1b1532; border-radius: 8px; padding: 4px; width: 45%; max-width: 350px; border: 1px solid var(--neon-purple); }
-        .search-box input { width: 100%; padding: 6px 12px; border: none; background: transparent; color: #fff; outline: none; font-size: 13px; }
-        .search-box button { padding: 6px 18px; border: none; background: var(--neon-pink); color: #fff; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 13px; }
+        /* Main Container Layout */
+        .app-layout { display: flex; flex-direction: column; width: 100%; }
 
-        /* Layout */
-        .container { display: flex; flex: 1; position: relative; }
+        /* 1. TITLE LAYER (Top Header) */
+        header { 
+            background-color: var(--dark-bg); padding: 15px 20px; display: flex; justify-content: center; align-items: center;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        .logo { font-size: 26px; font-weight: 900; color: #fff; text-shadow: 0 0 10px var(--neon-pink); cursor: pointer; user-select: none; text-transform: uppercase; letter-spacing: 1px; }
         
-        /* Sidebar */
-        aside { width: 230px; background-color: #0d0a1a; padding: 20px 12px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid rgba(168, 85, 247, 0.1); }
-        aside button { background: transparent; border: none; color: #94a3b8; text-align: left; padding: 12px 15px; font-size: 14px; font-weight: 500; cursor: pointer; border-radius: 6px; transition: 0.2s; }
-        aside button:hover, aside button.active { color: #fff; background: rgba(168, 85, 247, 0.2); border-left: 3px solid var(--neon-pink); }
+        /* 2. SEARCH LAYER (Middle Layer) */
+        .search-layer {
+            background-color: #0d0a1a; padding: 12px 20px; display: flex; justify-content: center;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        .search-box { display: flex; background: #1b1532; border-radius: 8px; padding: 4px; width: 100%; max-width: 500px; border: 1px solid var(--neon-purple); }
+        .search-box input { width: 100%; padding: 8px 12px; border: none; background: transparent; color: #fff; outline: none; font-size: 14px; }
+        .search-box button { padding: 8px 22px; border: none; background: var(--neon-pink); color: #fff; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 14px; }
+
+        /* 3. CATEGORY LAYER (Bottom Layer) */
+        .category-layer {
+            background-color: #0b0813; padding: 10px; display: flex; justify-content: center; gap: 8px; overflow-x: auto;
+            border-bottom: 2px solid var(--neon-purple); box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+        }
+        .category-layer button { background: #16122c; border: 1px solid rgba(168, 85, 247, 0.3); color: #94a3b8; padding: 8px 18px; font-size: 13.5px; font-weight: 600; cursor: pointer; border-radius: 20px; transition: 0.2s; white-space: nowrap; }
+        .category-layer button:hover, .category-layer button.active { color: #fff; background: var(--neon-purple); border-color: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); }
 
         /* Main Content */
         main { flex: 1; padding: 20px; background-color: #0b0813; }
@@ -81,60 +88,60 @@
 
         /* Responsive UI Mobile */
         @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 8px; gap: 6px; border-right: none; border-bottom: 1px solid rgba(168, 85, 247, 0.1); }
-            aside button { padding: 6px 12px; font-size: 12.5px; shrink: 0; white-space: nowrap; }
-            .search-box { width: 50%; }
+            .category-layer { justify-content: flex-start; padding: 8px; }
+            .category-layer button { padding: 6px 14px; font-size: 12.5px; }
             main { padding: 12px; }
-            .grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
+            .grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
             .video-title { font-size: 12px; height: 34px; }
         }
     </style> 
 
-    <!-- ✅ Adsterra Popunder Ad Code -->
     <script src="https://pl30109446.effectivecpmnetwork.com/6b/d2/fa/6bd2fad5225588becbb0d88cb0aa6e92.js"></script>
 </head>
 <body> 
 
-    <header>
-        <div class="logo" onclick="goHome()">Midnight Hub</div>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="ရှာဖွေရန်...">
-            <button onclick="handleSearch()">ရှာပါ</button>
-        </div>
-    </header> 
+    <div class="app-layout">
+        <header>
+            <div class="logo" onclick="goHome()">Midnight Hub</div>
+        </header> 
 
-    <div class="container">
-        <aside>
+        <div class="search-layer">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="ရှာဖွေရန်...">
+                <button onclick="handleSearch()">ရှာပါ</button>
+            </div>
+        </div>
+
+        <div class="category-layer">
             <button onclick="filterCategory('myanmar', this)" class="active">မြန်မာကားများ</button>
             <button onclick="filterCategory('asian', this)">အာရှ</button>
             <button onclick="filterCategory('japanese', this)">ဂျပန်</button>
             <button onclick="filterCategory('milf', this)">မမများ</button>
             <button onclick="filterCategory('amateur', this)">အပျော်တမ်း</button>
-        </aside> 
+        </div>
+    </div>
 
-        <main>
-            <div id="gallerySection">
-                <div class="grid" id="videoGrid"></div>
-                <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">နောက်ထပ်ကြည့်ရန်</button>
-            </div> 
+    <main>
+        <div id="gallerySection">
+            <div class="grid" id="videoGrid"></div>
+            <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">နောက်ထပ်ကြည့်ရန်</button>
+        </div> 
 
-            <div id="watchSection">
-                <button class="back-btn" onclick="goHome()">← နောက်သို့ပြန်သွားရန်</button>
-                <div class="player-container">
-                    <iframe id="videoPlayer" allowfullscreen></iframe>
-                </div>
-                <div class="watch-title" id="videoTitle"></div> 
-
-                <div class="vip-neon-box">
-                    <div class="vip-neon-text">
-                        မြန်မာချောင်းရိုက် // ကလေး အောကား // ဆယ်လီ အောကား // local leak // အထန်မလေးတွေ တစ်နေရာတည်းမှာ အစုံအလင်ကြည့်ဖို့ <span class="price">15000ks</span> ထဲဖြင့် <span class="highlight">Vip ဝင်နိုင်ပါပြီ</span>
-                    </div>
-                    <a href="https://t.me/Burma_VIP_Bot?start=Start" target="_blank" class="vip-btn">Vip ဝယ်ယူရန်</a>
-                </div>
+        <div id="watchSection">
+            <button class="back-btn" onclick="goHome()">← နောက်သို့ပြန်သွားရန်</button>
+            <div class="player-container">
+                <iframe id="videoPlayer" allowfullscreen></iframe>
             </div>
-        </main>
-    </div> 
+            <div class="watch-title" id="videoTitle"></div> 
+
+            <div class="vip-neon-box">
+                <div class="vip-neon-text">
+                    မြန်မာချောင်းရိုက် // ကလေး အောကား // ဆယ်လီ အောကား // local leak // အထန်မလေးတွေ တစ်နေရာတည်းမှာ အစုံအလင်ကြည့်ဖို့ <span class="price">15000ks</span> ထဲဖြင့် <span class="highlight">Vip ဝင်နိုင်ပါပြီ</span>
+                </div>
+                <a href="https://t.me/Burma_VIP_Bot?start=Start" target="_blank" class="vip-btn">Vip ဝယ်ယူရန်</a>
+            </div>
+        </div>
+    </main>
 
     <script>
         const API_BASE = 'https://www.eporner.com/api/v2/video/search/';
@@ -153,7 +160,6 @@
             return Math.floor(Math.random() * 15) + 1;
         } 
 
-        // 🌐 Eporner API ဗီဒီယိုအများကြီးဆွဲယူသည့် Function
         async function fetchVideos(query = 'myanmar', append = false) {
             if (!append) { 
                 page = getRandomPage();
@@ -217,7 +223,7 @@
         } 
 
         function filterCategory(cat, btn) {
-            document.querySelectorAll('aside button').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.category-layer button').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             currentQuery = cat;
             goHome();
@@ -240,7 +246,6 @@
         fetchVideos('myanmar', false);
     </script> 
 
-    <!-- ✅ Adsterra Social Bar Ad Code -->
     <script src="https://pl30109447.effectivecpmnetwork.com/c1/c2/00/c1c2006be2f5f7bbee36c64cd9a3da67.js"></script>
 </body>
 </html>
