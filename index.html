@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Midnight Hub</title>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #0b0813; color: #f1f0f5; display: flex; flex-direction: column; min-height: 100vh; }
         
         :root {
@@ -26,56 +26,165 @@
         .search-box input { width: 100%; padding: 6px; border: none; background: transparent; color: #fff; outline: none; font-size: 13px; }
         .search-box button { padding: 6px 15px; border: none; background: var(--neon-pink); color: #fff; border-radius: 4px; font-weight: bold; cursor: pointer; }
 
-        /* Layout */
+        /* Main Layout */
         .container { display: flex; flex: 1; }
-        aside { width: 230px; background-color: #0d0a1a; padding: 20px 10px; display: flex; flex-direction: column; gap: 8px; }
-        aside button { background: transparent; border: none; color: #94a3b8; text-align: left; padding: 12px; font-size: 14px; cursor: pointer; border-radius: 6px; transition: 0.2s; }
+        
+        /* Sidebar */
+        aside { width: 230px; background-color: #0d0a1a; padding: 20px 10px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid rgba(168, 85, 247, 0.1); }
+        aside button { background: transparent; border: none; color: #94a3b8; text-align: left; padding: 12px; font-size: 14px; cursor: pointer; border-radius: 6px; transition: 0.2s; font-weight: 500; }
         aside button:hover, aside button.active { color: #fff; background: rgba(168, 85, 247, 0.2); border-left: 3px solid var(--neon-pink); }
 
+        /* Main Content Area */
         main { flex: 1; padding: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
         
         /* Video Card */
-        .card { background: #16122c; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.25s; border: 1px solid rgba(168, 85, 247, 0.1); }
+        .card { background: #16122c; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.25s; border: 1px solid rgba(168, 85, 247, 0.1); display: flex; flex-direction: column; }
         .card:hover { transform: translateY(-3px); box-shadow: 0 0 15px rgba(244, 63, 94, 0.3); border-color: var(--neon-pink); }
         .thumb-container { width: 100%; aspect-ratio: 16/10; background: #000; position: relative; }
         .thumb-container img { width: 100%; height: 100%; object-fit: cover; }
-        .duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; font-size: 11px; border-radius: 4px; }
-        .info { padding: 12px; }
-        .video-title { font-size: 13.5px; font-weight: 500; color: #e2e8f0; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; font-size: 11px; border-radius: 4px; border: 1px solid var(--neon-purple); }
+        .info { padding: 12px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .video-title { font-size: 13.5px; font-weight: 500; color: #e2e8f0; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.4; }
         
-        .load-more-btn { display: block; width: 160px; margin: 30px auto; padding: 12px; background: #16122c; color: #fff; border: 1px solid var(--neon-purple); border-radius: 6px; cursor: pointer; }
+        .load-more-btn { display: block; width: 160px; margin: 30px auto; padding: 12px; background: #16122c; color: #fff; border: 1px solid var(--neon-purple); border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .load-more-btn:hover { background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); }
         
+        /* Responsive Mobile Layout */
         @media (max-width: 768px) {
             .container { flex-direction: column; }
-            aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 8px; }
-            aside button { padding: 6px 12px; font-size: 13px; }
+            aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 8px; border-right: none; border-bottom: 1px solid rgba(168, 85, 247, 0.1); }
+            aside button { padding: 8px 16px; font-size: 13px; white-space: nowrap; }
+            main { padding: 12px; }
             .grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+            .video-title { font-size: 12px; height: 34px; }
         }
     </style>
-    <!-- 1️⃣ PLACE ADSTERRA POPUNDER HERE -->
+    
+    <!-- ✅ Adsterra Popunder Ad Code (Head ထဲမှာ အလုပ်လုပ်စေရန်) -->
+    <script src="https://pl30109446.effectivecpmnetwork.com/6b/d2/fa/6bd2fad5225588becbb0d88cb0aa6e92.js"></script>
 </head>
 <body>
+
+    <!-- Top Header -->
     <header>
-        <div class="logo">Midnight Hub</div>
+        <div class="logo" onclick="filterCategory('all')">Midnight Hub</div>
         <div class="search-box">
-            <input type="text" placeholder="ရှာဖွေရန်...">
-            <button>ရှာပါ</button>
+            <input type="text" id="searchInput" placeholder="ရှာဖွေရန်..." onkeyup="searchVideos()">
+            <button onclick="searchVideos()">ရှာပါ</button>
         </div>
     </header>
+
+    <!-- App Container -->
     <div class="container">
+        <!-- Navigation Sidebar -->
         <aside>
-            <button class="active">မြန်မာကား</button>
-            <button>အာရှ</button>
-            <button>ဂျပန်</button>
+            <button class="nav-btn active" onclick="filterCategory('myanmar', this)">မြန်မာကား</button>
+            <button class="nav-btn" onclick="filterCategory('asia', this)">အာရှ</button>
+            <button class="nav-btn" onclick="filterCategory('japan', this)">ဂျပန်</button>
         </aside>
+
+        <!-- Video Listing Main Area -->
         <main>
-            <div class="grid">
-                <!-- Cards will go here -->
+            <div class="grid" id="videoGrid">
+                <!-- ဂျာဗားစခရစ်ကနေ ဗီဒီယိုကတ်တွေကို ဒီထဲမှာ Auto လာဆောက်ပေးပါလိမ့်မယ် -->
             </div>
-            <button class="load-more-btn">ထပ်ကြည့်ရန်</button>
+            <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">ထပ်ကြည့်ရန်</button>
         </main>
     </div>
-    <!-- 2️⃣ PLACE ADSTERRA SOCIAL BAR HERE -->
+
+    <!-- ✅ Adsterra Social Bar Ads Code (Body အပိတ်အပေါ် နေရာမှန်) -->
+    <script src="https://pl30109447.effectivecpmnetwork.com/c1/c2/00/c1c2006be2f5f7bbee36c64cd9a3da67.js"></script>
+
+    <!-- 🛠️ Website Backend Logic (Database & Functions) -->
+    <script>
+        // ၁။ ရုပ်ရှင်ဇာတ်ကားဒေတာဘေ့စ် (ဒီနေရာမှာ ဗီဒီယိုတွေ စိတ်ကြိုက်ထပ်တိုးလို့ရပါတယ် အစ်ကို)
+        const videoDatabase = [
+            { id: 1, title: "မြန်မာအောကားအသစ်စက်စက် ကောင်းကောင်းလေး", category: "myanmar", duration: "25:14", thumb: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500", url: "https://t.me/your_telegram_channel/1" },
+            { id: 2, title: "အာရှသူနာပြုဆရာမလေးရဲ့ လျှို့ဝှက်ချက်", category: "asia", duration: "18:42", thumb: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500", url: "https://t.me/your_telegram_channel/2" },
+            { id: 3, title: "ဂျပန်မလေး အိမ်လည်လာရာမှ စဆုံးစက္ကပ်", category: "japan", duration: "45:00", thumb: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500", url: "https://t.me/your_telegram_channel/3" },
+            { id: 4, title: "မြန်မာစုံတွဲ အပြင်ထွက် ချိန်းတွေ့ကြရာမှ", category: "myanmar", duration: "12:05", thumb: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500", url: "https://t.me/your_telegram_channel/4" },
+            { id: 5, title: "ကျောင်းသူဝတ်စုံနဲ့ လှေကားရင်းမှာ စွတ်ကြတာ", category: "japan", duration: "30:15", thumb: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500", url: "https://t.me/your_telegram_channel/5" },
+            { id: 6, title: "အာရှစော်အလန်းဇယား အပိုင်း ၂ အကြည်", category: "asia", duration: "22:40", thumb: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=500", url: "https://t.me/your_telegram_channel/6" }
+        ];
+
+        let currentCategory = "myanmar";
+        let displayedCount = 4; // တစ်ခါပြရင် ကတ် ၄ ခုစီပဲပြမယ် (Load More နှိပ်မှ ထပ်တက်မယ်)
+
+        // ၂။ ဗီဒီယိုကတ်များ ထုတ်ပေးသည့် Function
+        function renderVideos() {
+            const grid = document.getElementById("videoGrid");
+            grid.innerHTML = "";
+
+            // ကဏ္ဍအလိုက် စစ်ထုတ်ခြင်း
+            let filtered = videoDatabase.filter(v => v.category === currentCategory);
+            
+            // Search Box ထဲ စာရိုက်ထားရင် ရှာပေးခြင်း
+            const searchQuery = document.getElementById("searchInput").value.toLowerCase();
+            if(searchQuery) {
+                filtered = videoDatabase.filter(v => v.title.toLowerCase().includes(searchQuery));
+            }
+
+            // ကတ်အရေအတွက် ကန့်သတ်ချက်ဖြင့် Render လုပ်ခြင်း
+            const toDisplay = filtered.slice(0, displayedCount);
+
+            if(toDisplay.length === 0) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color:#94a3b8; padding: 20px;">ရှာဖွေမှုမတွေ့ရှိပါ။</p>`;
+                document.getElementById("loadMoreBtn").style.display = "none";
+                return;
+            }
+
+            toDisplay.forEach(video => {
+                const card = document.createElement("div");
+                card.className = "card";
+                card.onclick = () => window.open(video.url, '_blank'); // နှိပ်ရင် လင့်ခ်ကို Tab အသစ်နဲ့ ပွင့်စေမယ်
+                
+                card.innerHTML = `
+                    <div class="thumb-container">
+                        <img src="${video.thumb}" alt="thumbnail">
+                        <div class="duration">${video.duration}</div>
+                    </div>
+                    <div class="info">
+                        <div class="video-title">${video.title}</div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Load More ခလုတ် ပြ/မပြ စစ်ဆေးခြင်း
+            if (displayedCount >= filtered.length) {
+                document.getElementById("loadMoreBtn").style.display = "none";
+            } else {
+                document.getElementById("loadMoreBtn").style.display = "block";
+            }
+        }
+
+        // ၃။ Category ပြောင်းသည့်စနစ်
+        function filterCategory(cat, element) {
+            currentCategory = cat;
+            displayedCount = 4; // ကန့်သတ်ချက်ကို ၄ ခု ပြန်လုပ်မယ်
+            document.getElementById("searchInput").value = ""; // ရှာထားတာတွေ ဖျက်မယ်
+            
+            // Active Button အရောင်ပြောင်းခြင်း
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            if(element) element.classList.add('active');
+            
+            renderVideos();
+        }
+
+        // ၄။ ရုပ်ရှင်ထပ်ကြည့်ရန် (Load More) စနစ်
+        function loadMore() {
+            displayedCount += 4; // နောက်ထပ် ၄ ကတ် ထပ်တိုးပြမယ်
+            renderVideos();
+        }
+
+        // ၅။ ရုပ်ရှင်ရှာဖွေခြင်း (Search) စနစ်
+        function searchVideos() {
+            renderVideos();
+        }
+
+        // ဝဘ်ဆိုက် စပွင့်ချင်းမှာ ဗီဒီယိုတွေကို အလိုအလျောက် ပြပေးထားရန်
+        window.onload = renderVideos;
+    </script>
 </body>
 </html>
