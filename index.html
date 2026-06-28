@@ -6,29 +6,46 @@
     <title>SerBalGyi</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: #0b0813; color: #f1f0f5; display: flex; flex-direction: column; min-height: 100vh; }
         
+        /* 🌟 3. BACKROUND RUN COLOUR (White & Golden Neon Dynamic Gradient) */
+        body { 
+            background: linear-gradient(-45deg, #0b0813, #1c1810, #17171c, #262012);
+            background-size: 400% 400%;
+            animation: bgRunColour 15s ease infinite;
+            color: #f1f0f5; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+        }
+
+        @keyframes bgRunColour {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         :root {
             --neon-purple: #a855f7;
             --neon-pink: #f43f5e;
-            --dark-bg: #120e22;
+            --dark-bg: rgba(18, 14, 34, 0.85);
+            --gold-run: linear-gradient(90deg, #ffe57f, #ffffff, #ffd700, #ffffff, #ffe57f);
         }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #0b0813; }
-        ::-webkit-scrollbar-thumb { background: var(--neon-purple); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb { background: #ffd700; border-radius: 3px; }
 
         /* Main Container Layout */
         .app-layout { display: flex; flex-direction: column; width: 100%; }
 
-        /* 1. TITLE LAYER (Top Header & Logo Animation) */
+        /* 1. TITLE LAYER */
         header { 
             background-color: var(--dark-bg); padding: 18px 20px; display: flex; justify-content: center; align-items: center;
-            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(10px);
         }
         
-        /* 🔥 SerBalGyi Logo Animation Dynamic Style */
         .logo { 
             font-size: 28px; 
             font-weight: 900; 
@@ -40,9 +57,9 @@
         }
 
         @keyframes neonGlow {
-            0% { color: #fff; text-shadow: 0 0 10px #f43f5e, 0 0 20px #f43f5e, 0 0 30px #a855f7; }
-            50% { color: #f43f5e; text-shadow: 0 0 15px #a855f7, 0 0 25px #a855f7, 0 0 40px #f43f5e; }
-            100% { color: #a855f7; text-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6, 0 0 30px #a855f7; }
+            0% { color: #fff; text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #fff; }
+            50% { color: #ffd700; text-shadow: 0 0 15px #fff, 0 0 25px #fff, 0 0 40px #ffd700; }
+            100% { color: #fff; text-shadow: 0 0 10px #ffe57f, 0 0 20px #ffe57f, 0 0 30px #ffd700; }
         }
 
         @keyframes textPulse {
@@ -52,79 +69,130 @@
         
         /* 2. SEARCH LAYER */
         .search-layer {
-            background-color: #0d0a1a; padding: 12px 20px; display: flex; justify-content: center;
-            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            background-color: rgba(13, 10, 26, 0.8); padding: 12px 20px; display: flex; justify-content: center;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+            backdrop-filter: blur(10px);
         }
-        .search-box { display: flex; background: #1b1532; border-radius: 8px; padding: 4px; width: 100%; max-width: 500px; border: 1px solid var(--neon-purple); }
+        .search-box { display: flex; background: #1b1532; border-radius: 8px; padding: 4px; width: 100%; max-width: 500px; border: 1px solid #ffd700; }
         .search-box input { width: 100%; padding: 8px 12px; border: none; background: transparent; color: #fff; outline: none; font-size: 14px; }
-        .search-box button { padding: 8px 22px; border: none; background: var(--neon-pink); color: #fff; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 14px; }
+        .search-box button { padding: 8px 22px; border: none; background: #ffd700; color: #000; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 14px; }
 
         /* 3. CATEGORY LAYER */
         .category-layer {
-            background-color: #0b0813; padding: 12px 10px; display: flex; justify-content: center; gap: 12px; overflow-x: auto;
-            border-bottom: 2px solid var(--neon-purple); box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+            background-color: rgba(11, 8, 19, 0.8); padding: 12px 10px; display: flex; justify-content: center; gap: 12px; overflow-x: auto;
+            border-bottom: 2px solid #ffd700; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.1);
+            backdrop-filter: blur(10px);
         }
-        .category-layer button { background: #16122c; border: 1px solid rgba(168, 85, 247, 0.3); color: #94a3b8; padding: 10px 24px; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 25px; transition: 0.2s; white-space: nowrap; }
-        .category-layer button:hover, .category-layer button.active { color: #fff; background: var(--neon-purple); border-color: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); }
+        .category-layer button { background: #16122c; border: 1px solid rgba(255, 215, 0, 0.3); color: #94a3b8; padding: 10px 24px; font-size: 14px; font-weight: 600; cursor: pointer; border-radius: 25px; transition: 0.2s; white-space: nowrap; }
+        .category-layer button:hover, .category-layer button.active { color: #000; background: #ffd700; border-color: #ffd700; box-shadow: 0 0 10px #ffd700; }
 
         /* Main Content */
-        main { flex: 1; padding: 20px; background-color: #0b0813; }
+        main { flex: 1; padding: 20px; }
         
         /* Video Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
         
-        /* Video Card */
-        .card { background: #16122c; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.25s ease; border: 1px solid rgba(168, 85, 247, 0.1); display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-3px); box-shadow: 0 0 15px rgba(244, 63, 94, 0.3); border-color: var(--neon-pink); }
+        /* 🌟 2. VIDEO CARD FRAME RUN COLOUR (Neon Border Glow Animation) */
+        .card { 
+            background: rgba(22, 18, 44, 0.85); 
+            border-radius: 12px; 
+            overflow: hidden; 
+            cursor: pointer; 
+            display: flex; 
+            flex-direction: column;
+            position: relative;
+            padding: 2px; /* Run Colour ဘောင်ပေါ်စေရန် */
+            z-index: 1;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 12px;
+            padding: 2px; 
+            background: var(--gold-run);
+            background-size: 300% 300%;
+            animation: cardBorderRun 4s linear infinite;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+        @keyframes cardBorderRun {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 0 15px rgba(255, 255, 255, 0.4); transition: 0.25s ease; }
         
-        .thumb-container { width: 100%; aspect-ratio: 16/10; background: #000; position: relative; overflow: hidden; }
+        .thumb-container { width: 100%; aspect-ratio: 16/10; background: #000; position: relative; overflow: hidden; border-radius: 10px 10px 0 0; }
         .thumb-container img { width: 100%; height: 100%; object-fit: cover; }
         
-        .duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.8); padding: 2px 6px; font-size: 11px; border-radius: 4px; color: #fff; font-weight: 600; border: 1px solid var(--neon-purple); }
+        .duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0, 0, 0, 0.8); padding: 2px 6px; font-size: 11px; border-radius: 4px; color: #ffd700; font-weight: 600; border: 1px solid #ffd700; }
         
-        .info { padding: 12px; display: flex; flex-direction: column; gap: 4px; }
+        .info { padding: 12px; display: flex; flex-direction: column; gap: 4px; background: #16122c; border-radius: 0 0 10px 10px; }
         .video-title { font-size: 13.5px; font-weight: 500; line-height: 1.4; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: #e2e8f0; }
-        .card:hover .video-title { color: var(--neon-pink); }
+        .card:hover .video-title { color: #ffd700; }
         .views { font-size: 11.5px; color: #94a3b8; } 
 
         /* Watch Section */
         #watchSection { display: none; width: 100%; max-width: 900px; margin: 0 auto; }
-        .back-btn { background: #16122c; color: #e2e8f0; border: 1px solid var(--neon-purple); padding: 8px 18px; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 13px; margin-bottom: 20px; display: inline-block; }
+        .back-btn { background: #16122c; color: #e2e8f0; border: 1px solid #ffd700; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-weight: 600; font-size: 13px; margin-bottom: 20px; display: inline-block; }
         .back-btn:hover { background: #fff; color: #000; }
-        .player-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid var(--neon-purple); }
+        .player-container { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 2px solid #ffd700; }
         .player-container iframe { width: 100%; height: 100%; border: none; }
         .watch-title { font-size: 18px; font-weight: 600; margin-top: 15px; color: #fff; } 
 
         /* VIP Banner */
-        .vip-neon-box { margin-top: 25px; padding: 22px; background: #120e22; border-radius: 12px; text-align: center; position: relative; border: 1px solid var(--neon-purple); box-shadow: 0 0 15px rgba(168, 85, 247, 0.2); }
+        .vip-neon-box { margin-top: 25px; padding: 22px; background: rgba(18, 14, 34, 0.9); border-radius: 12px; text-align: center; position: relative; border: 1px solid rgba(255, 215, 0, 0.3); box-shadow: 0 0 15px rgba(255, 215, 0, 0.1); }
         .vip-neon-text { font-size: 14px; line-height: 1.7; color: #cbd5e1; margin-bottom: 18px; }
-        .vip-neon-text span.highlight { color: #f43f5e; font-weight: bold; }
-        .vip-neon-text span.price { color: #a855f7; font-weight: 800; font-size: 18px; text-shadow: 0 0 8px var(--neon-purple); } 
-        .vip-btn { display: inline-block; padding: 12px 45px; font-size: 14px; font-weight: 800; color: #fff; text-decoration: none; border-radius: 6px; background: var(--neon-pink); box-shadow: 0 0 15px rgba(244, 63, 94, 0.4); transition: 0.2s; }
-        .vip-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(244, 63, 94, 0.7); } 
+        .vip-neon-text span.highlight { color: #ffd700; font-weight: bold; }
+        .vip-neon-text span.price { color: #fff; font-weight: 800; font-size: 18px; text-shadow: 0 0 8px #fff; } 
+        
+        /* 🌟 1. VIP BUTTON RUN COLOUR (White-Gold Neon Background Run Animation) */
+        .vip-btn { 
+            display: inline-block; 
+            padding: 14px 50px; 
+            font-size: 15px; 
+            font-weight: 800; 
+            color: #000; 
+            text-decoration: none; 
+            border-radius: 30px; 
+            background: var(--gold-run);
+            background-size: 200% auto;
+            box-shadow: 0 0 15px rgba(255, 230, 127, 0.4); 
+            transition: 0.2s; 
+            animation: btnRunColour 2s linear infinite;
+        }
+        @keyframes btnRunColour {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+        .vip-btn:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(255, 255, 255, 0.8); } 
 
         /* Load More Button */
-        .load-more-btn { display: block; width: 180px; margin: 30px auto; padding: 12px; background: #16122c; color: #fff; border: 1px solid var(--neon-purple); border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; }
-        .load-more-btn:hover { background: var(--neon-purple); box-shadow: 0 0 10px var(--neon-purple); } 
+        .load-more-btn { display: block; width: 180px; margin: 30px auto; padding: 12px; background: #16122c; color: #fff; border: 1px solid #ffd700; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; transition: 0.2s; }
+        .load-more-btn:hover { background: #ffd700; color: #000; box-shadow: 0 0 10px #ffd700; } 
 
-        /* 🚨 Pop up Notice Box CSS */
+        /* Pop up Notice Box CSS */
         .popup-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center;
             z-index: 9999; padding: 20px; opacity: 1; transition: opacity 0.3s ease;
         }
         .popup-box {
-            background: #120e22; border: 2px solid var(--neon-pink); border-radius: 15px;
+            background: #120e22; border: 2px solid #ffd700; border-radius: 15px;
             padding: 25px; max-width: 450px; width: 100%; text-align: center;
-            box-shadow: 0 0 25px rgba(244, 63, 94, 0.5); transform: scale(1); transition: transform 0.3s ease;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.3); transform: scale(1); transition: transform 0.3s ease;
         }
-        .popup-title { font-size: 20px; font-weight: bold; color: #f43f5e; margin-bottom: 15px; text-shadow: 0 0 8px rgba(244, 63, 94, 0.3); }
+        .popup-title { font-size: 20px; font-weight: bold; color: #ffd700; margin-bottom: 15px; text-shadow: 0 0 8px rgba(255, 215, 0, 0.3); }
         .popup-msg { font-size: 14.5px; color: #e2e8f0; line-height: 1.6; margin-bottom: 22px; text-align: left; }
-        .popup-msg span { color: #a855f7; font-weight: bold; }
+        .popup-msg span { color: #ffd700; font-weight: bold; }
         .popup-close-btn {
-            background: var(--neon-pink); color: #fff; border: none; padding: 10px 35px;
+            background: var(--gold-run); background-size: 200% auto; animation: btnRunColour 2s linear infinite;
+            color: #000; border: none; padding: 10px 35px;
             font-size: 14px; font-weight: bold; border-radius: 6px; cursor: pointer;
-            box-shadow: 0 0 10px rgba(244, 63, 94, 0.4); transition: 0.2s;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2); transition: 0.2s;
         }
         .popup-close-btn:hover { background: #fff; color: #000; box-shadow: 0 0 15px #fff; }
 
@@ -133,7 +201,7 @@
             .category-layer { justify-content: flex-start; padding: 8px; gap: 8px; }
             .category-layer button { padding: 8px 16px; font-size: 13px; }
             main { padding: 12px; }
-            .grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+            .grid { grid-template-columns: repeat(2, 1fr) !important; gap: 12px; }
             .video-title { font-size: 12px; height: 34px; }
             .logo { font-size: 24px; }
         }
@@ -208,7 +276,6 @@
         const videoTitle = document.getElementById('videoTitle');
         const loadMoreBtn = document.getElementById('loadMoreBtn'); 
 
-        // Popup ပိတ်ရန် Function
         function closeNotice() {
             const popup = document.getElementById('popupNotice');
             popup.style.opacity = '0';
@@ -224,7 +291,7 @@
         async function fetchVideos(query = 'myanmar', append = false) {
             if (!append) { 
                 page = getRandomPage();
-                videoGrid.innerHTML = '<p style="padding:20px; color:var(--neon-purple); font-weight:600; font-size:14px;">ဗီဒီယိုများ အသစ်ပြောင်းလဲဆွဲယူနေပါသည်...</p>'; 
+                videoGrid.innerHTML = '<p style="padding:20px; color:#ffd700; font-weight:600; font-size:14px;">ဗီဒီယိုများ အသစ်ပြောင်းလဲဆွဲယူနေပါသည်...</p>'; 
             }
             try {
                 const searchKeyword = query ? query : 'myanmar';
@@ -244,7 +311,7 @@
                 }
             } catch (err) {
                 console.error(err);
-                if (!append) videoGrid.innerHTML = '<p style="padding:20px; color:var(--neon-pink); font-size:14px;">Error: အချက်အလက်ယူလို့မရပါ။ VPN ဖွင့်ထားဖို့ လိုအပ်ပါသည်။</p>';
+                if (!append) videoGrid.innerHTML = '<p style="padding:20px; color:#ffd700; font-size:14px;">Error: အချက်အလက်ယူလို့မရပါ။ VPN ဖွင့်ထားဖို့ လိုအပ်ပါသည်။</p>';
             }
         } 
 
