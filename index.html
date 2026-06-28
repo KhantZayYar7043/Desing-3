@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midnight Hub</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #0b0813; color: #f1f0f5; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        :root {
+            --neon-purple: #a855f7;
+            --neon-pink: #f43f5e;
+            --dark-bg: #120e22;
+        }
+
+        /* Header */
+        header { 
+            background-color: var(--dark-bg); padding: 15px 20px; display: flex; align-items: center; justify-content: space-between; 
+            position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--neon-purple);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.4);
+        }
+        .logo { font-size: 22px; font-weight: 900; color: #fff; text-shadow: 0 0 10px var(--neon-pink); cursor: pointer; }
+        
+        .search-box { display: flex; background: #1b1532; border-radius: 8px; padding: 4px; width: 45%; max-width: 350px; border: 1px solid var(--neon-purple); }
+        .search-box input { width: 100%; padding: 6px; border: none; background: transparent; color: #fff; outline: none; font-size: 13px; }
+        .search-box button { padding: 6px 15px; border: none; background: var(--neon-pink); color: #fff; border-radius: 4px; font-weight: bold; cursor: pointer; }
+
+        /* Layout */
+        .container { display: flex; flex: 1; }
+        aside { width: 230px; background-color: #0d0a1a; padding: 20px 10px; display: flex; flex-direction: column; gap: 8px; }
+        aside button { background: transparent; border: none; color: #94a3b8; text-align: left; padding: 12px; font-size: 14px; cursor: pointer; border-radius: 6px; transition: 0.2s; }
+        aside button:hover, aside button.active { color: #fff; background: rgba(168, 85, 247, 0.2); border-left: 3px solid var(--neon-pink); }
+
+        main { flex: 1; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+        
+        /* Video Card */
+        .card { background: #16122c; border-radius: 12px; overflow: hidden; cursor: pointer; transition: 0.25s; border: 1px solid rgba(168, 85, 247, 0.1); }
+        .card:hover { transform: translateY(-3px); box-shadow: 0 0 15px rgba(244, 63, 94, 0.3); border-color: var(--neon-pink); }
+        .thumb-container { width: 100%; aspect-ratio: 16/10; background: #000; position: relative; }
+        .thumb-container img { width: 100%; height: 100%; object-fit: cover; }
+        .duration { position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.8); padding: 2px 6px; font-size: 11px; border-radius: 4px; }
+        .info { padding: 12px; }
+        .video-title { font-size: 13.5px; font-weight: 500; color: #e2e8f0; height: 38px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        
+        .load-more-btn { display: block; width: 160px; margin: 30px auto; padding: 12px; background: #16122c; color: #fff; border: 1px solid var(--neon-purple); border-radius: 6px; cursor: pointer; }
+        
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            aside { width: 100%; flex-direction: row; overflow-x: auto; padding: 8px; }
+            aside button { padding: 6px 12px; font-size: 13px; }
+            .grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+        }
+    </style>
+    <!-- 1️⃣ PLACE ADSTERRA POPUNDER HERE -->
+</head>
+<body>
+    <header>
+        <div class="logo">Midnight Hub</div>
+        <div class="search-box">
+            <input type="text" placeholder="ရှာဖွေရန်...">
+            <button>ရှာပါ</button>
+        </div>
+    </header>
+    <div class="container">
+        <aside>
+            <button class="active">မြန်မာကား</button>
+            <button>အာရှ</button>
+            <button>ဂျပန်</button>
+        </aside>
+        <main>
+            <div class="grid">
+                <!-- Cards will go here -->
+            </div>
+            <button class="load-more-btn">ထပ်ကြည့်ရန်</button>
+        </main>
+    </div>
+    <!-- 2️⃣ PLACE ADSTERRA SOCIAL BAR HERE -->
+</body>
+</html>
